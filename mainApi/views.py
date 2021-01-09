@@ -14,7 +14,7 @@ class QuestionListView(APIView):
 
 
 class QuestionDetailView(APIView):
-    '''Вывод полног вопроса'''
+    '''Вывод полного вопроса'''
     def get(self, request, idQuest):
         question = Question.objects.get(id=idQuest)
         serializer = QuestionDetailSerializer(question)
@@ -30,7 +30,7 @@ class AnswerListView(APIView):
 
 
 class AnswerDetailView(APIView):
-    '''Вывод полног вопроса'''
+    '''Вывод полного ответа'''
     def get(self, request, idAnsw):
         answer = Answer.objects.get(id=idAnsw)
         serializer = AnswerDetailSerializer(answer)
