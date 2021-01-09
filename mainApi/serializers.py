@@ -6,14 +6,14 @@ class QuestionListSerializer(serializers.ModelSerializer):
     '''Список вопросов'''
     class Meta:
         model = Question
-        fields = ('id', 'text', 'message_before_question', 'answers')
+        fields = ('id', 'text', 'message_before_question', 'answers', 'image')
 
 
 class QuestionDetailSerializer(serializers.ModelSerializer):
     '''Полный вопрос'''
     class Meta:
         model = Question
-        fields = ('id', 'text', 'message_before_question', 'answers')
+        fields = ('id', 'text', 'message_before_question', 'answers', 'image')
 
 
 class AnswerListSerializer(serializers.ModelSerializer):
