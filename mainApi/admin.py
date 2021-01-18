@@ -1,5 +1,4 @@
 from django.contrib import admin
-# Register your models here.
 from .models import Question, Answer
 
 
@@ -13,5 +12,5 @@ admin.site.register(Answer, AnswerAdmin)
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'text', 'message_before_question')
+    list_display = ('id', 'text', 'message_before_question', 'image')
     list_filter = ('id', 'text')
