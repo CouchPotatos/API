@@ -1,8 +1,22 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics, permissions
 
 from .models import Question, Answer
 from .serializers import QuestionListSerializer, AnswerListSerializer, QuestionDetailSerializer, AnswerDetailSerializer
+
+from django.views.decorators.csrf import csrf_protect
+
+@csrf_protect
+def login(request):
+     csrfContext = RequestContext(request)
+     return render_to_response('foo.html', csrfContext)
+
+
+class Logout(APIView):
+    def get(self, request, format=None):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
 
 
 class QuestionListView(APIView):

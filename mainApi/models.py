@@ -1,4 +1,14 @@
-from django.db import models
+import jwt
+
+from datetime import datetime
+from datetime import timedelta
+
+from django.conf import settings
+from django.core import validators
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
+
+
 from django.db import models
 
 
@@ -30,3 +40,4 @@ class Question(models.Model):
     class Meta:
         verbose_name = 'Вопрос'
         verbose_name_plural = 'Вопросы'
+
