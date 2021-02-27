@@ -4,11 +4,14 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 
 urlpatterns = [
-    path('auth/', include('djoser.urls')),
-    path('auth/token', obtain_auth_token, name='token'),
 
     path('questions/', views.QuestionListView.as_view()),
-    path('answers/', views.AnswerListView.as_view()),
-    path('questions/<int:idQuest>/', views.QuestionDetailView.as_view()),
-    path('answers/<int:idAnsw>/', views.AnswerDetailView.as_view()),  
+    path('answers/', views.AnswersListView.as_view()),
+    path('question/<int:idQuest>/', views.QuestionDetailView.as_view()),
+    path('answer/<int:idAnsw>/', views.AnswerDetailView.as_view()),
+    path('answer/create', views.AnswerCreateView.as_view()),
+    path('question/create', views.QuestionCreateView.as_view()),
+
+    # path('answer/', views.AnswerViewSet.as_view({'get': 'list'})),
+    # path('answer/<int:pk>', views.AnswerViewSet.as_view({'get':  'retrieve'})),
 ]

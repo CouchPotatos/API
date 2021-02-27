@@ -8,7 +8,7 @@ from django.core import validators
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 
-
+from rest_framework import permissions
 from django.db import models
 
 
@@ -31,8 +31,7 @@ class Question(models.Model):
     id = models.AutoField('ID вопроса', primary_key=True)
     text = models.TextField('Текст вопроса')
     message_before_question = models.TextField('Сопутствующее сообщение перед вопросом', blank=True)
-    answers = models.ManyToManyField(Answer, verbose_name='Ответы на вопрос', related_name='answers_for_questions')
-    image = models.ImageField('Выберите своё изображение', blank=True, upload_to='Images')
+    answers = models.ManyToManyField(Answer, verbose_name='Ответы на вопрос', related_name='answers')
 
     def __str__(self):
         return self.text
