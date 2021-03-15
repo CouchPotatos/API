@@ -6,14 +6,16 @@ class QuestionListSerializer(serializers.ModelSerializer):
     '''Список вопросов'''
     class Meta:
         model = Question
-        fields = ('id', 'text', 'message_before_question', 'answers', 'image')
+        fields = ('id', 'text', 'message_before_question', 'answers')
 
 
 class QuestionDetailSerializer(serializers.ModelSerializer):
     '''Полный вопрос'''
+    image = serializers.ImageField(required=False)
+
     class Meta:
         model = Question
-        fields = ('id', 'text', 'message_before_question', 'answers', 'image')
+        fields = ('id', 'text', 'message_before_question', 'answers')
 
 
 class AnswerListSerializer(serializers.ModelSerializer):
@@ -47,11 +49,11 @@ class QuestionCreateSerializer(serializers.ModelSerializer):
     '''Добавление нового вопроса'''
     class Meta:
         model = Question
-        fields = ('text', 'message_before_question', 'answers', 'image')
+        fields = ('text', 'message_before_question', 'answers')
 
     def create(self, request, *args, **kwargs):
         data = request
-        new_question = Question.objects.create(text=data["text"], message_before_question=data['message_before_question'], image=data['image'])
+        new_question = Question.objects.create(text=data["text"], message_before_question=data['message_before_question'])
         for answer in data["answers"]:
             new_question.answers.add(answer)
         new_question.save()

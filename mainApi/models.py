@@ -32,7 +32,6 @@ class Question(models.Model):
     text = models.TextField('Текст вопроса')
     message_before_question = models.TextField('Сопутствующее сообщение перед вопросом', blank=True)
     answers = models.ManyToManyField(Answer, verbose_name='Ответы на вопрос', related_name='answers')
-    image = models.ImageField('Выберите своё изображение', blank=True, upload_to='Images')
 
     def __str__(self):
         return self.text
