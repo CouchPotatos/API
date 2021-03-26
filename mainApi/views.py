@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics, permissions
+from rest_framework.decorators import api_view
 
 from .models import Question, Answer
 from .serializers import *
@@ -54,3 +55,43 @@ class AnswerCreateView(generics.CreateAPIView):
 class QuestionCreateView(generics.CreateAPIView):
     '''Добавление вопроса'''
     serializer_class = QuestionCreateSerializer
+
+
+@api_view(['DELETE', ])
+def delete_question_view(request, id):
+
+    try:
+        quest = Question.objects.get(id=id)
+    except Question.DoesNotExist:
+        data = {}
+        data["failure"] = "Bad request, not found"
+        return Response(data)
+
+    if request.method == 'DELETE':
+        operation = quest.delete()
+        data = {}
+        if operation:
+            data["success"] = "delete successful"
+        else:
+            data["failure"] = "delete failed"
+    return Response(data=data)
+
+
+@api_view(['DELETE', ])
+def delete_answer_view(request, id):
+
+    try:
+        answ = Answer.objects.get(id=id)
+    except Answer.DoesNotExist:
+        data = {}
+        data["failure"] = "Bad request, not found"
+        return Response(data)
+
+    if request.method == 'DELETE':
+        operation = answ.delete()
+        data = {}
+        if operation:
+            data["success"] = "delete successful"
+        else:
+            data["failure"] = "delete failed"
+    return Response(data=data)
