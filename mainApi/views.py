@@ -64,16 +64,16 @@ def delete_question_view(request, id):
         quest = Question.objects.get(id=id)
     except Question.DoesNotExist:
         data = {}
-        data["failure"] = "Bad request, not found"
+        data["response"] = "Bad request, not found"
         return Response(data)
 
     if request.method == 'DELETE':
         operation = quest.delete()
         data = {}
         if operation:
-            data["success"] = "delete successful"
+            data["response"] = "delete successful"
         else:
-            data["failure"] = "delete failed"
+            data["response"] = "delete failed"
     return Response(data=data)
 
 
@@ -84,14 +84,56 @@ def delete_answer_view(request, id):
         answ = Answer.objects.get(id=id)
     except Answer.DoesNotExist:
         data = {}
-        data["failure"] = "Bad request, not found"
+        data["response"] = "Bad request, not found"
         return Response(data)
 
     if request.method == 'DELETE':
         operation = answ.delete()
         data = {}
         if operation:
-            data["success"] = "delete successful"
+            data["response"] = "delete successful"
         else:
-            data["failure"] = "delete failed"
+            data["response"] = "delete failed"
     return Response(data=data)
+
+
+@api_view(['PUT', ])
+def update_answer_view(request, id):
+
+    try:
+        answ = Answer.objects.get(id=id)
+    except Answer.DoesNotExist:
+        data = {}
+        data["response"] = "Bad request, not found"
+        return Response(data)
+
+    if request.method == 'PUT':
+        operation = AnswerCreateSerializer(answ, data=request.data)
+        data = {}
+        if operation.is_valid():
+            operation.save()
+            data["response"] = "edit successful"
+        else:
+            data["response"] = "edit failed"
+    return Response(data=data)
+
+@api_view(['PUT', ])
+def update_question_view(request, id):
+
+    try:
+        quest = Question.objects.get(id=id)
+    except Question.DoesNotExist:
+        data = {}
+        data["response"] = "Bad request, not found"
+        return Response(data)
+
+    if request.method == 'PUT':
+        operation = QuestionCreateSerializer(quest, data=request.data)
+        data = {}
+        if operation.is_valid():
+            operation.save()
+            data["response"] = "edit successful"
+        else:
+            data["response"] = "edit failed"
+    return Response(data=data)
+
